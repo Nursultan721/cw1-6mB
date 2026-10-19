@@ -180,3 +180,9 @@ CKEDITOR_5_CONFIGS = {
         'toolbar': ['bold', 'italic', 'link'],
     },
 }
+AUTH_USER_MODEL = 'testapp.User' 
+# Было:
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# Стало (добавьте дефолтное значение на случай отсутствия .env):
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-for-development')

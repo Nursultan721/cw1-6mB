@@ -1,16 +1,27 @@
 from django.contrib import admin
-from django.urls import path
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls.static import static
 from django.urls import include, path, re_path
 from core.yasg import urlpatterns_yasg
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
+from apps.testapp.views import GoogleAuthView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(urlpatterns_yasg)),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
+
+    path('api/v1/auth/jwt/create/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/auth/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/auth/google/', GoogleAuthView.as_view(), name='google_auth'),
 ]
 
 
